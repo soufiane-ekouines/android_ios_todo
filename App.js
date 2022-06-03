@@ -1,8 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button, TextInput, ScrollView, FlatList, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, FlatList, Aler,TouchableWithoutFeedback,Keyboard} from 'react-native';
 import React ,{useState} from 'react'
 import Header from './components/header';
 import TodoItem from './components/todoItem';
+import AddTodo from './components/addTodo';
 
 export default function App() {
 const [todos,set_todo] = useState([
@@ -18,12 +19,27 @@ const pressHandler = (key) =>{
   })
 }
 
+const submitHandler = (text) =>{
+  if(text.length > 3){
+  set_todo((prevTodos)=>{
+    return [{text:text,key:Math.random().toString()},...prevTodos];
+  })
+  }else{
+    Alert.alert('Error','Todo must be at least 3 characters',[{text:'Okay'}]);
+  }
+
+}
   return (
+    <TouchableWithoutFeedback onPress={() => {
+      
+      // Keyboard.dismiss();
+      
+    }}>
     <View style={styles.container}>   
 
       <Header />
       <View style={styles.content}>
-        {/* to form */}
+        <AddTodo submitHandler={submitHandler}/>
         <View style={styles.list}>
           <FlatList
             data={todos}
@@ -35,6 +51,7 @@ const pressHandler = (key) =>{
         </View>
       </View>
     </View>
+    </TouchableWithoutFeedback>
   );
 }
 
@@ -42,8 +59,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   content:{
     padding:40,
