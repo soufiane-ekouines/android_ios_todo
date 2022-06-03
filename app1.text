@@ -1,0 +1,117 @@
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, View, Button, TextInput, ScrollView, FlatList, TouchableOpacity } from 'react-native';
+import React ,{useState} from 'react'
+
+export default function App() {
+  const [Name,setName] = useState('ekouines');
+  const [personn,setperson] = useState({Name:'soufiane',age:21});
+  // list 
+  const [persolist,setpersolist] = useState([
+      {name:'soufiane',key:'1'},
+      {name:'aymen',key:'2'},
+      {name:'abdar',key:'3'},
+      {name:'karim',key:'4'},
+      {name:'ahmed',key:'5'},
+      {name:'kalakh',key:'6'},
+
+    ])
+
+  const clickHandler = () =>{
+    setName("soufiane ekouines");
+    setperson({Name:'ekouines',age:'30'});
+  }
+
+  const clickreturn = () =>{
+    setName("ekouines");
+    setperson({Name:'soufiane',age:21});
+  }
+  const preshandler = (id) =>{
+    console.log(id);
+    setpersolist((prev)=>{
+      return prev.filter(pers => pers.key!=id)
+    })
+  }
+
+  return (
+    <View style={styles.container}>   
+       
+      <View style={styles.header}>
+        <Text style={styles.boldtext}>Hello from soufiane</Text>
+      </View>
+      <View style={styles.body}>
+        <Text style={styles.boldtext}> lorem dofu dolar t dirham maroc france</Text>
+        <Text> My last name is {Name}</Text>
+        <Text> My name s {personn.Name} and my age is {personn.age}</Text>
+        <TextInput 
+                  multiline
+                  //  keyboardType='number-pad'
+                  style={styles.inputtext} 
+                  placeholder='enter the name'
+                  onChangeText={(val)=>setName(val)}/>
+        <View style={styles.buttoncontainer}>
+          <Button title='Update state' onPress={clickHandler}/>
+          <Button title='back state' onPress={clickreturn}/>
+        </View>
+    {/* afficher la liste */}
+    {/* <ScrollView>
+        {
+          persolist.map(item =>(
+              <View key={item.key}>
+              <Text style={styles.item}>{item.name}</Text>
+              </View>
+            )
+          )
+        }
+    </ScrollView> */}
+
+      <FlatList 
+                // numColumns={2}
+                keyExtractor={(item) => item.key}
+                data={persolist}
+                renderItem ={({item}) => (
+                  <TouchableOpacity onPress={()=>preshandler(item.key)}>
+                       <Text style={styles.item}>{item.name}</Text>
+                  </TouchableOpacity>
+
+                )}
+      />
+      </View>
+     
+
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  header: {
+    backgroundColor:'pink',
+    padding: 20,
+  },
+  boldtext: {
+    fontWeight:'bold',
+  },
+  body: {
+    backgroundColor:'yellow',
+    padding:20,
+  },
+  buttoncontainer:{
+    marginTop:20,
+  },inputtext:{
+    borderWidth:1,
+    borderColor:'#777',
+    margin:10,
+    paddingLeft:6,
+  },
+  item:{
+    marginTop:24,
+    padding:30,
+    backgroundColor:'pink',
+    fontSize:24,
+  }
+});
