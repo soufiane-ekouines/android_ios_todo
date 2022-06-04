@@ -26,3 +26,8 @@ const styles = StyleSheet.create({
         borderBottomColor:'#ddd'
     }
 });
+
+
+
+// project soufiane ekouines
+// soufianeekouines@gmail.com

@@ -1,9 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View, FlatList, Aler,TouchableWithoutFeedback,Keyboard} from 'react-native';
+import { StyleSheet, View, FlatList, Alert, TouchableWithoutFeedback, Keyboard} from 'react-native';
 import React ,{useState} from 'react'
 import Header from './components/header';
 import TodoItem from './components/todoItem';
 import AddTodo from './components/addTodo';
+import Sandbox from './components/sandbox';
 
 export default function App() {
 const [todos,set_todo] = useState([
@@ -30,6 +31,7 @@ const submitHandler = (text) =>{
 
 }
   return (
+    // <Sandbox/>
     <TouchableWithoutFeedback onPress={() => {
       
       // Keyboard.dismiss();
@@ -61,10 +63,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   content:{
+    flex:1,
     padding:40,
   },
   list:{
+    flex:1,
     marginTop:20,
   }
   
 });
+
+
+// project soufiane ekouines
+// soufianeekouines@gmail.com
